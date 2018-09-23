@@ -1,13 +1,11 @@
 pipeline {
   agent any
- 
-  tools {nodejs “node”}
- 
-  stages {
-    stage(‘Example’) {
+    
+  stages {    
+    stage('Cloning Git') {
       steps {
-        sh ‘npm config ${ls}’
+        git 'https://github.com/gustavoapolinario/microservices-node-example-todo-frontend.git'
       }
     }
-  }
+  }     
 }
