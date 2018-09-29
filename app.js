@@ -13,25 +13,27 @@ app.use(bodyParser.json({
 
 let colors = [].concat(DEFAULT_COLORS);
 
-app.get('/colors', (req, res) => {
+app.get('/colors', function(req, res, next) {
   res.json({
-  	results: colors
-  }); 
+    results: colors
+  });
 });
 
-app.post('/colors', (req, res, next) => {
-  if(req.is('application/json') && typeof req.body.color === 'string') {
-  	let color = req.body.color.trim().toUpperCase();
+app.post('/colors', function(req, res, next) {
+  if (req.is('application/json') && typeof req.body.color === 'string') {
+    let color = req.body.color.trim().toUpperCase();
 
-  	if (color && colors.indexOf(color) < 0) {
-  	  colors.push(color);
+    if (color && colors.indexOf(color) < 0) {
+      colors.push(color);
 
-  	  return res.status(201).send({
-  	    results.colors
-  	  });
-  	}
+      // 201 Created
+      return res.status(201).send({
+        results: colors
+      });
+    }
   }
-  res.status(400).send();
+
+  res.status(400).send(); // 400 Bad Request
 });
 
 app.listen(port, () => {
