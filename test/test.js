@@ -67,7 +67,7 @@ describe('API endpoint /colors', function() {
         color: 'YELLOW'
       })
       .then(function(res) {
-        throw new Error('Invalid content type!');
+        return new Error('Invalid content type!');
       })
       .catch(function(err) {
         expect(err).to.have.status(400);
